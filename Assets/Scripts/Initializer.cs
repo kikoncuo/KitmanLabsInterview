@@ -13,7 +13,7 @@ public class Initializer : MonoBehaviour {
     
 
     void Start () {
-
+        
         if (errorPanel == null) {
             Debug.LogError("ErrorPanel was not found, errors wont be shown in it (You can add it to the scene, its a prefab)");
         }
@@ -36,7 +36,7 @@ public class Initializer : MonoBehaviour {
             {
                 GameObject intstantiatedAthlete = Instantiate(athlete);
                 intstantiatedAthlete.transform.SetParent(athleteContainer.transform);
-                AthleteInfo athleteInfoScript = intstantiatedAthlete.GetComponent<AthleteInfo>();
+                AthleteManager athleteInfoScript = intstantiatedAthlete.GetComponent<AthleteManager>();
                 athleteInfoScript.athleteInfo = athletesArray.athletes[i];
                 athleteInfoScript.setPlayerInfo();
             }
@@ -44,7 +44,7 @@ public class Initializer : MonoBehaviour {
         catch (Exception err)
         {
             errorPanel.SetActive(true);
-            errorPanel.GetComponent<ErrorManager>().setErrorText(err.Message);
+            errorPanel.GetComponent<ErrorManager>().setErrorText("There was a problem while reading the athlete info: "+err.Message);
         }
     }
 }

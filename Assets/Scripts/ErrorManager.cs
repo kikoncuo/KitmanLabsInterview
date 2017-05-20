@@ -15,9 +15,8 @@ public class ErrorManager : MonoBehaviour {
 		
 	}
 
-    public void setErrorText(string messageString, string titleString = "ERROR")
+    public void setErrorText(string messageString = "Undefined error")
     {
-        this.gameObject.transform.GetChild(0).GetComponent<Text>().text = titleString;
         this.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = messageString;
     }
 
