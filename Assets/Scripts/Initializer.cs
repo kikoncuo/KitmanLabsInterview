@@ -9,18 +9,18 @@ public class Initializer : MonoBehaviour {
     public GameObject athleteContainer;
     public TextAsset jsonFile;
 
-    // Use this for initialization
     void Start () {
         AthleteArray athletesArray = JsonUtility.FromJson<AthleteArray>(jsonFile.text);
         for (int i = 0; i < athletesArray.athletes.Length; i++)
         {
             GameObject intstantiatedAthlete = Instantiate(athlete);
-            intstantiatedAthlete.transform.parent = athleteContainer.transform;
-            intstantiatedAthlete.GetComponent<AthleteInfo>().athleteInfo = athletesArray.athletes[i];
+            intstantiatedAthlete.transform.SetParent(athleteContainer.transform);
+            AthleteInfo athleteInfoScript = intstantiatedAthlete.GetComponent<AthleteInfo>();
+            athleteInfoScript.athleteInfo = athletesArray.athletes[i];
+            athleteInfoScript.setPlayerInfo();
         }
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
