@@ -90,7 +90,7 @@ public class Initializer : MonoBehaviour {
         {
             playerInfoPanel.SetActive(false);
             errorPanel.SetActive(true);
-            errorPanel.GetComponent<ErrorManager>().setErrorText("There was a problem while reading the athlete info: " + err.Message + "This may be because the url isn't correct");
+            errorPanel.GetComponent<ErrorManager>().setErrorText("There was a problem while reading the athlete info: " + err.Message + ". This may be because the url isn't correct");
         }
     }
 }
