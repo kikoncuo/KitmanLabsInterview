@@ -98,7 +98,39 @@ public class SetTeam : MonoBehaviour {
                 }
                 randomTries++;
             }
+            if (compatiblePlayer == null)
+                Debug.Log("There are not enough players to fill all spaces TODO: do this in the error window");
             return compatiblePlayer;
+        }
+        else
+            return null;
+    }
+
+    private Transform returnBestPlayerInList(List<int> compatiblePlayers)
+    {
+        if (compatiblePlayers.Count > 0)
+        {
+            Transform bestPlayer = null;
+            int bestScore = 0;
+            for (int i = 0; i < compatiblePlayers.Count; i++)
+            {
+                int compatiblePlayerPos = compatiblePlayers.ElementAt(i);
+                for (int j = 0; j < playerContainer.transform.childCount; j++)
+                {
+                    int playeriD = playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.id;
+                    if (playeriD == compatiblePlayerPos)
+                    {
+                        if (playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.star_rating > bestScore) { 
+                            bestPlayer = playerContainer.transform.GetChild(j);
+                            bestScore = playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.star_rating;
+                        }
+                        j = playerContainer.transform.childCount;
+                    }
+                }
+            }
+            if (bestPlayer == null)
+                Debug.Log("There are not enough players with score to fill all spaces TODO: do this in the error window");
+            return bestPlayer;
         }
         else
             return null;
@@ -299,6 +331,201 @@ public class SetTeam : MonoBehaviour {
             else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("prop"))
             {
                 Transform compatiblePlayer = returnRandomPlayerInList(prop);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+        }
+        ratingCalculator2.setAverageRating();
+    }
+
+    public void setBest()
+    {
+        divideByPossitions();
+        clearField(team1);
+        clearField(team2);
+        for (int i = 0; i < team1.transform.childCount; i++)
+        {
+            if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("full-back"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(fullBack);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("centre"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(centre);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("winger"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(wing);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("out-half"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(outHalf);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("lock"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(alock);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("flanker"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(flanker);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("hooker"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(hooker);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("number-eight"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(nEight);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("scrum-half"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(scrumHalf);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+            else if (team1.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("prop"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(prop);
+                if (compatiblePlayer != null)
+                {
+                    team1.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team1.transform.GetChild(i));
+                }
+            }
+        }
+        ratingCalculator1.setAverageRating();
+        for (int i = 0; i < team2.transform.childCount; i++)
+        {
+            if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("full-back"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(fullBack);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("centre"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(centre);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("winger"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(wing);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("out-half"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(outHalf);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("lock"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(alock);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("flanker"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(flanker);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("hooker"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(hooker);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("number-eight"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(nEight);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("scrum-half"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(scrumHalf);
+                if (compatiblePlayer != null)
+                {
+                    team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
+                    compatiblePlayer.SetParent(team2.transform.GetChild(i));
+                }
+            }
+            else if (team2.transform.GetChild(i).GetComponent<IconDropZone>().position.Equals("prop"))
+            {
+                Transform compatiblePlayer = returnBestPlayerInList(prop);
                 if (compatiblePlayer != null)
                 {
                     team2.transform.GetChild(i).GetComponent<Image>().sprite = compatiblePlayer.GetChild(1).GetComponent<Image>().sprite;
