@@ -8,36 +8,60 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 {
     [HideInInspector]
     public Transform parentToReturn;
-    public GameObject playerIcon;
+    [HideInInspector]
+    public Sprite spriteToReset;
+    public GameObject iconPrefab;
+
+    private GameObject playerIcon;
+    private bool containsAthlete = false;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        parentToReturn = this.transform.parent;
-        instantiateIcon();
-
+        if (hasChild()) {
+            parentToReturn = this.transform.parent;
+            instantiateIcon();
+            spriteToReset = playerIcon.GetComponent<Image>().sprite;
+            this.transform.GetComponent<Image>().sprite = spriteToReset;
+            containsAthlete = true;
+        }else
+        {
+            containsAthlete = false;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        playerIcon.transform.position = eventData.position;
+        if (containsAthlete)
+        {
+            playerIcon.transform.position = eventData.position;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        playerIcon.GetComponent<CanvasGroup>().blocksRaycasts = true;
-        playerIcon.SetActive(false);
-        /*this.gameObject.SetActive(true);
-        this.transform.SetParent(parentToReturn);
-        this.transform.SetSiblingIndex(childPosition);*/
+        if (containsAthlete)
+        {
+            playerIcon.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            this.transform.SetParent(parentToReturn);
+            this.transform.GetComponent<Image>().sprite = spriteToReset;
+            Destroy(playerIcon);
+        }
     }
 
     private void instantiateIcon()
     {
-        //playerIcon.SetActive(true);
-        playerIcon = Instantiate(playerIcon);
+        playerIcon = Instantiate(iconPrefab);
         playerIcon.transform.SetParent(parentToReturn);
         playerIcon.GetComponent<Image>().sprite =
             this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite;
         playerIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    }
+
+    private bool hasChild() {
+        if (this.gameObject.transform.childCount > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

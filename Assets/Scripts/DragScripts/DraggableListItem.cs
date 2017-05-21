@@ -9,8 +9,17 @@ public class DraggableListItem : MonoBehaviour, IDragHandler, IBeginDragHandler,
     //private Vector2 originalPosition;
     [HideInInspector]
     public Transform parentToReturn;
+    public GameObject iconPrefab;
+
+
+    private RatingCalculator rCalculator;
     private int childPosition;
-    public GameObject playerIcon;
+    private GameObject playerIcon;
+
+    public void Start()
+    {
+        rCalculator = GameObject.FindWithTag("AverageStars1").GetComponent<RatingCalculator>();
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -29,17 +38,19 @@ public class DraggableListItem : MonoBehaviour, IDragHandler, IBeginDragHandler,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        playerIcon.GetComponent<CanvasGroup>().blocksRaycasts = true;
-        playerIcon.SetActive(false);
+        //playerIcon.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        //playerIcon.SetActive(false);
         this.gameObject.SetActive(true);
         this.transform.SetParent(parentToReturn);
         this.transform.SetSiblingIndex(childPosition);
+        Destroy(playerIcon);
+        rCalculator.setAverageRating();
     }
 
     private void instantiateIcon()
     {
-        playerIcon.SetActive(true);
-        playerIcon = Instantiate(playerIcon);
+        //playerIcon.SetActive(true);
+        playerIcon = Instantiate(iconPrefab);
         playerIcon.transform.SetParent(parentToReturn);
         playerIcon.GetComponent<Image>().sprite = 
             this.gameObject.transform.GetChild(1).GetComponent<Image>().sprite;
