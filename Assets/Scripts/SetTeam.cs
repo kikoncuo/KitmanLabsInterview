@@ -90,7 +90,7 @@ public class SetTeam : MonoBehaviour {
                 for (int j = 0; j < playerContainer.transform.childCount; j++)
                 {
                     int playeriD = playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.id;
-                    if (playeriD == compatiblePlayerPos)
+                    if (playeriD == compatiblePlayerPos && !playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.isInjured)
                     {
                         compatiblePlayer = playerContainer.transform.GetChild(j);
                         j = playerContainer.transform.childCount;
@@ -98,14 +98,15 @@ public class SetTeam : MonoBehaviour {
                 }
                 randomTries++;
             }
-            if (compatiblePlayer == null)
-                Debug.Log("There are not enough players to fill all spaces TODO: do this in the error window");
+            if (compatiblePlayer == null) ;
+                //DO THIS IN ERROR WINDOW Debug.Log("There are not enough players to fill all spaces TODO: do this in the error window");
             return compatiblePlayer;
         }
         else
             return null;
     }
 
+    //TODO: This only returns the best one aviable, but there may be better combinations, this should be fixed
     private Transform returnBestPlayerInList(List<int> compatiblePlayers)
     {
         if (compatiblePlayers.Count > 0)
@@ -120,7 +121,7 @@ public class SetTeam : MonoBehaviour {
                     int playeriD = playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.id;
                     if (playeriD == compatiblePlayerPos)
                     {
-                        if (playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.star_rating > bestScore) { 
+                        if (playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.star_rating > bestScore && !playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.isInjured) { 
                             bestPlayer = playerContainer.transform.GetChild(j);
                             bestScore = playerContainer.transform.GetChild(j).GetComponent<AthleteManager>().athleteInfo.star_rating;
                         }
@@ -128,8 +129,8 @@ public class SetTeam : MonoBehaviour {
                     }
                 }
             }
-            if (bestPlayer == null)
-                Debug.Log("There are not enough players with score to fill all spaces TODO: do this in the error window");
+            if (bestPlayer == null) ;
+                //DO THIS IN ERROR WINDOWDebug.Log("There are not enough players with score to fill all spaces TODO: do this in the error window");
             return bestPlayer;
         }
         else
