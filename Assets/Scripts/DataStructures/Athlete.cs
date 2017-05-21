@@ -12,6 +12,7 @@ public class Athlete {
     public string name;
     public string avatar_url;
     public int star_rating;
+    public string country;
     public string last_played;
     public string[] positions;
     public bool isInjured;

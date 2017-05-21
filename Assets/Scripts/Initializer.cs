@@ -10,7 +10,10 @@ public class Initializer : MonoBehaviour {
     public GameObject athleteContainer;
     public TextAsset jsonFile;
     public GameObject errorPanel;
-    
+    public GameObject playerInfoPanel;
+
+    private AthleteManager athleteInfoScript;
+
 
     void Start () {
         
@@ -32,14 +35,17 @@ public class Initializer : MonoBehaviour {
     {
         try { 
             AthleteArray athletesArray = JsonUtility.FromJson<AthleteArray>(jsonFile.text);
+            playerInfoPanel.SetActive(true);
             for (int i = 0; i < athletesArray.athletes.Length; i++)
             {
                 GameObject intstantiatedAthlete = Instantiate(athlete);
                 intstantiatedAthlete.transform.SetParent(athleteContainer.transform);
-                AthleteManager athleteInfoScript = intstantiatedAthlete.GetComponent<AthleteManager>();
+                athleteInfoScript = intstantiatedAthlete.GetComponent<AthleteManager>();
                 athleteInfoScript.athleteInfo = athletesArray.athletes[i];
                 athleteInfoScript.setPlayerInfo();
+                athleteInfoScript.playerInfoPanel = playerInfoPanel;
             }
+            playerInfoPanel.SetActive(false);
         }
         catch (Exception err)
         {
