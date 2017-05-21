@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [HideInInspector]
+    public Sprite blankSprite;
+    [HideInInspector]
     public Transform parentToReturn;
     [HideInInspector]
     public Sprite spriteToReset;
@@ -15,13 +17,18 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     private GameObject playerIcon;
     private bool containsAthlete = false;
 
+    private void Start()
+    {
+        blankSprite = this.transform.GetComponent<Image>().sprite;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (hasChild()) {
             parentToReturn = this.transform.parent;
             instantiateIcon();
             spriteToReset = playerIcon.GetComponent<Image>().sprite;
-            this.transform.GetComponent<Image>().sprite = spriteToReset;
+            this.transform.GetComponent<Image>().sprite = blankSprite;
             containsAthlete = true;
         }else
         {

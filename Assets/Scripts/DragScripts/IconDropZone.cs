@@ -55,6 +55,8 @@ public class IconDropZone : MonoBehaviour, IDropHandler {
             if (dI != null)
             {
                 dI.spriteToReset = this.gameObject.transform.GetComponent<Image>().sprite;
+                if (eventData.pointerDrag == this.gameObject)
+                    dI.spriteToReset = icon;
                 //If the object has children also try to move it
                 if (this.transform.childCount>1) {
                     this.transform.GetChild(0).SetParent(eventData.pointerDrag.transform);

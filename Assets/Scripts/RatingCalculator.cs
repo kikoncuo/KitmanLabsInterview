@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RatingCalculator : MonoBehaviour {
 
     public GameObject team;
+    public int teamNumber;
 
     private float calculateAverageRating()
     {
@@ -26,7 +27,7 @@ public class RatingCalculator : MonoBehaviour {
 
     public void setAverageRating()
     {
-        this.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Team Rating: " + calculateAverageRating().ToString();
+        this.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Team "+teamNumber+" Rating: " + calculateAverageRating().ToString();
     }
         
 

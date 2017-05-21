@@ -11,6 +11,9 @@ public class Initializer : MonoBehaviour {
     public TextAsset jsonFile;
     public GameObject errorPanel;
     public GameObject playerInfoPanel;
+    public SetTeam setTeam;
+    [HideInInspector]
+    public AthleteArray athletesArray;
 
     private AthleteManager athleteInfoScript;
 
@@ -24,6 +27,7 @@ public class Initializer : MonoBehaviour {
         {
             errorPanel.SetActive(false);
             setAthletsOnList();
+            setTeam.athleteArray = athletesArray;
         }
     }
     
@@ -34,7 +38,7 @@ public class Initializer : MonoBehaviour {
     private void setAthletsOnList()
     {
         try { 
-            AthleteArray athletesArray = JsonUtility.FromJson<AthleteArray>(jsonFile.text);
+            athletesArray = JsonUtility.FromJson<AthleteArray>(jsonFile.text);
             playerInfoPanel.SetActive(true);
             for (int i = 0; i < athletesArray.athletes.Length; i++)
             {
