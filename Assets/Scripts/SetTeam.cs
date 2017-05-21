@@ -98,7 +98,7 @@ public class SetTeam : MonoBehaviour {
                 }
                 randomTries++;
             }
-            if (compatiblePlayer == null) ;
+            //if (compatiblePlayer == null) ;
                 //DO THIS IN ERROR WINDOW Debug.Log("There are not enough players to fill all spaces TODO: do this in the error window");
             return compatiblePlayer;
         }
@@ -129,7 +129,7 @@ public class SetTeam : MonoBehaviour {
                     }
                 }
             }
-            if (bestPlayer == null) ;
+            //if (bestPlayer == null) ;
                 //DO THIS IN ERROR WINDOWDebug.Log("There are not enough players with score to fill all spaces TODO: do this in the error window");
             return bestPlayer;
         }
