@@ -89,4 +89,12 @@ public class IconDropZone : MonoBehaviour, IDropHandler {
                 errorPanel.GetComponent<ErrorManager>().setErrorText(AthleteInfo.name + " is injured and can't play");
         }
     }
+
+    public void showPlayerInfo()
+    {
+        if (this.gameObject.transform.childCount > 0)
+        {
+            this.gameObject.transform.GetChild(0).GetComponent<AthleteManager>().showPlayerInfo();
+        }
+    }
 }
