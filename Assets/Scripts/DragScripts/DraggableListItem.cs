@@ -12,13 +12,15 @@ public class DraggableListItem : MonoBehaviour, IDragHandler, IBeginDragHandler,
     public GameObject iconPrefab;
 
 
-    private RatingCalculator rCalculator;
+    private RatingCalculator rCalculator1;
+    private RatingCalculator rCalculator2;
     private int childPosition;
     private GameObject playerIcon;
 
     public void Start()
     {
-        rCalculator = GameObject.FindWithTag("AverageStars1").GetComponent<RatingCalculator>();
+        rCalculator1 = GameObject.FindWithTag("AverageStars1").GetComponent<RatingCalculator>();
+        rCalculator2 = GameObject.FindWithTag("AverageStars2").GetComponent<RatingCalculator>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -44,7 +46,8 @@ public class DraggableListItem : MonoBehaviour, IDragHandler, IBeginDragHandler,
         this.transform.SetParent(parentToReturn);
         this.transform.SetSiblingIndex(childPosition);
         Destroy(playerIcon);
-        rCalculator.setAverageRating();
+        rCalculator1.setAverageRating();
+        rCalculator2.setAverageRating();
     }
 
     private void instantiateIcon()

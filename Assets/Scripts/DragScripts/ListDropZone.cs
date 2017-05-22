@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ListDropZone : MonoBehaviour, IDropHandler{
-    private RatingCalculator rCalculator;
+    private RatingCalculator rCalculator1;
+    private RatingCalculator rCalculator2;
 
     public void Start()
     {
-        rCalculator = GameObject.FindWithTag("AverageStars1").GetComponent<RatingCalculator>();
+        rCalculator1 = GameObject.FindWithTag("AverageStars1").GetComponent<RatingCalculator>();
+        rCalculator2 = GameObject.FindWithTag("AverageStars2").GetComponent<RatingCalculator>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -26,6 +28,7 @@ public class ListDropZone : MonoBehaviour, IDropHandler{
             athlete.SetParent(this.transform);
             athlete.SetSiblingIndex(0);
         }
-        rCalculator.setAverageRating();
+        rCalculator1.setAverageRating();
+        rCalculator2.setAverageRating();
     }
 }
